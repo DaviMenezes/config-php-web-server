@@ -1,11 +1,16 @@
 !#/bin/sh
+
+if [ "$(id -u)" != "0" ]; then
+	echo "Permissão Negada. Rode este script como root."
+	exit 1
+fi
+
 echo Instalando Apache ...
-sudo apt-get install apache2 php7.0 libapache2-mod-php7.0 
-sudo apt-get install php7.0-soap php7.0-xml php7.0-curl php7.0-opcache php7.0-gd php7.0-sqlite3 php7.0-mcrypt php7.0-mbstring 
-sudo apt-get install rpl zip unzip git vim curl
+apt-get install apache2 php7.0 libapache2-mod-php7.0 
+apt-get install php7.0-soap php7.0-xml php7.0-curl php7.0-opcache php7.0-gd php7.0-sqlite3 php7.0-mcrypt php7.0-mbstring 
+apt-get install rpl zip unzip git vim curl
 
 echo Habilitando modulos do apache ...
-sudo su
 a2dismod mpm_event 
 a2dismod mpm_worker 
 a2enmod mpm_prefork 
@@ -28,9 +33,9 @@ echo Reiniciando Apache ...
 service apache2 restart
 
 echo Instalando banco de dados ...
-sudo apt-get install postgresql php7.0-pgsql php7.0-mysql
-sudo apt-get update
-sudo apt-get install mysql-server
+apt-get install postgresql php7.0-pgsql php7.0-mysql
+apt-get update
+apt-get install mysql-server
 
 
 echo Habilitando leitura de .htaccess ...
